@@ -52,9 +52,10 @@
   ;; This should be a conditional, but we want tail recursion:
   (if (pos? (.available in))
     (let [b (.read in)]
-      ;; (println "RAW" b)
+      ;;(println "RAW" b)
       (cond (= b 0x80)               ; End message.
-            (do (f (:command state)
+            (do ;;(println "DISPATCHING WITH" (:command state))
+                (f (:command state)
                    (:data state))
                 (recur start-state in f))
 
@@ -90,9 +91,16 @@
       (.addEventListener (listener #(swap! state
                                            process-from-stream
                                            (.getInputStream port)
-                                           (fn [c args] (println "C" c "ARGS" args)))))
+                                           (fn [c args] (when-let [f (get callback-map c)]
+                                                         (f args))))))
       (.notifyOnDataAvailable true))
 
     (reify PORT
-      (xmit [this ch bytes] nil)
+      (xmit [this ch bytes]
+        (let [os (.getOutputStream port)]
+          (.write os (bit-or (int ch) 0x80))
+          (doseq [b bytes] (do (.write os (bit-shift-right b 4))
+                               (.write os (bit-and b 0xF))))
+          (.write os 0x80)
+          (.flush os)))
       (close [this] (.close port)))))

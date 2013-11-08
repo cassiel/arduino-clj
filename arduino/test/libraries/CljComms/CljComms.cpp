@@ -4,6 +4,7 @@ CljComms::CljComms() {
   itsCommand = 0;
   itsDataPtr = itsData;
   itsFirstNybble = true;
+  itsNumBindings = 0;
 }
 
 void CljComms::begin(int speed) {
@@ -16,9 +17,17 @@ void CljComms::begin(int speed) {
     b[0] = i;
     b[1] = 99;
     b[2] = i + 100;
-    xmit('B', 3, b);
+    xmit('A', 3, b);
     delay(300);
     if (++i >= 100) { i = 0; }
+  }
+}
+
+void CljComms::bind(char cmd, void (*callback)(int n, byte *args)) {
+  if (itsNumBindings < MAXBINDINGS - 1) {
+    Binding &b = itsBindings[itsNumBindings++];
+    b.cmd = cmd;
+    b.callback = callback;
   }
 }
 
@@ -34,11 +43,18 @@ void CljComms::xmit(byte cmd, int len, byte *data) {
   Serial.write(0x80);
 }
 
-void CljComms::process(int b, void (*callback)(byte cmd, int n, byte *args)) {
+void CljComms::process(int b) {
   /* Protocol is: letter&128, then nybblised data bytes, then 128. */
 
   if (b == 0x80) {		/* End of message */
-    (*callback)(itsCommand, itsDataPtr - itsData, itsData);
+    char ch = (char) itsCommand;
+    for (int i = 0; i < itsNumBindings; i++) {
+      Binding &b = itsBindings[i];
+      if (b.cmd == ch) {
+        b.callback(itsDataPtr - itsData, itsData);
+        return;
+      }
+    }
   } else if (b & 0x80) {	/* Command */
     itsCommand = b & 0x7F;
     itsDataPtr = itsData;

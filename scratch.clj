@@ -1,7 +1,17 @@
 (ns user
   (:require (eu.cassiel.arduino [comms :as c])))
 
-(def p (c/open "/dev/tty.usbmodemfa141" 9600 nil))
+(def p (c/open "/dev/tty.usbmodemfa141" 9600 {\A println
+                                              \+ (fn [[h l]] (println "TOTAL" (+ (bit-shift-left h 8) l)))}))
+
+
+(c/xmit p \L [1])
+(c/xmit p \L [0])
+
+(c/xmit p \X [0])
+
+(doseq [n (range 64 74)]
+  (c/xmit p \+ [n n n 1]))
 
 p
 
@@ -32,3 +42,8 @@ p
 
 
 (conj [1 2 3] 4)
+
+(char (bit-and 171 0x7F))
+
+(when-let [f (get {\+ identity} \+)]
+  (f 35))
