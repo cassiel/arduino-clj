@@ -1,7 +1,7 @@
 (ns user
   (:require (eu.cassiel.arduino [comms :as c])))
 
-(def p (c/open "/dev/tty.usbmodemfa141" 9600 {\A println
+(def p (c/open "/dev/tty.usbmodemfa141" 9600 {\? println
                                               \+ (fn [[h l]] (println "TOTAL" (+ (bit-shift-left h 8) l)))}))
 
 

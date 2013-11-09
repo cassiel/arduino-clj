@@ -10,6 +10,8 @@ CljComms::CljComms() {
 void CljComms::begin(int speed) {
   Serial.begin(speed);
 
+  // This is rather superfluous: do a sporadic message until we get some input. (On the
+  // Clojure side in `scratch.clj`, this just causes printout.)
   int i = 0;
 
   while (Serial.available() <= 0) {
@@ -17,7 +19,7 @@ void CljComms::begin(int speed) {
     b[0] = i;
     b[1] = 99;
     b[2] = i + 100;
-    xmit('A', 3, b);
+    xmit('?', 3, b);
     delay(300);
     if (++i >= 100) { i = 0; }
   }
