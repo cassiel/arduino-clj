@@ -1,7 +1,6 @@
 `-*- word-wrap: t; -*-`
 
-arduino-clj
-===========
+# `arduino-clj` [![Build Status](https://secure.travis-ci.org/cassiel/arduino-clj.png)](http://travis-ci.org/cassiel/arduino-clj)
 
 Generic Arduino protocol and comms for Clojure.
 
