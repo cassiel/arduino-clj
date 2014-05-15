@@ -16,9 +16,10 @@ Setting up the Arduino environment: symlink the library:
 
     cd ~/Documents/Arduino/libraries/
     ln -s [...]/arduino-clj/arduino/test/libraries/CljComms ./CljComms
+    
+(On Linux the libraries folder is `~/sketchbook/libraries`; on Windows it's somewhere in `My Documents`.)
 
-Then you may have to add it (or rather, the symlink in the Arduino sketch subdirectory) via
-`Sketch->Import Library`.
+Then you may have to add it (or rather, the symlink in the Arduino libraries subdirectory) via `Sketch->Import Library`.
 
 ## Running
 
@@ -30,7 +31,7 @@ Actual communication tests are in `scratch.clj`, with some example endpoints in 
 
 ```clojure
 (def p (c/open "/dev/tty.usbmodemfa141" 9600
-                {\? println
+0                {\? println
                  \+ (fn [[h l]] (println "TOTAL" (+ (bit-shift-left h 8) l)))}))
 ```
 
