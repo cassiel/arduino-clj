@@ -31,7 +31,7 @@ Actual communication tests are in `scratch.clj`, with some example endpoints in 
 
 ```clojure
 (def p (c/open "/dev/tty.usbmodemfa141" 9600
-0                {\? println
+                {\? println
                  \+ (fn [[h l]] (println "TOTAL" (+ (bit-shift-left h 8) l)))}))
 ```
 
