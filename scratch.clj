@@ -15,6 +15,19 @@
 
 p
 
+(c/xmit p \D [9 1])
+(c/xmit p \D [5 0])
+(c/xmit p \D [6 255])
+(c/xmit p \D [7 0])
+(c/xmit p \D [8 255])
+
+(c/xmit p \D [5 0])
+
+(c/xmit p \D [1 0])
+(c/xmit p \D [2 0])
+(c/xmit p \D [3 0])
+
+
 (c/close p)
 
 (char (bit-and 194 0x7F))
