@@ -1,4 +1,4 @@
-`-*- word-wrap: t; -*-`
+`-*- mode: markdown; mode: visual-line; mode: adaptive-wrap-prefix; -*-`
 
 # `arduino-clj` [![Build Status](https://secure.travis-ci.org/cassiel/arduino-clj.png)](http://travis-ci.org/cassiel/arduino-clj)
 
