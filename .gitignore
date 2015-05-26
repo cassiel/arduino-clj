@@ -8,3 +8,4 @@ pom.xml
 .lein-*
 .nrepl-port
 pom.xml.asc
+.DS_Store
