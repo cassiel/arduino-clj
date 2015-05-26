@@ -19,7 +19,7 @@ Setting up the Arduino environment: symlink the library:
     
 (On Linux the libraries folder is `~/sketchbook/libraries`; on Windows it's somewhere in `My Documents`.)
 
-Then you may have to add it (or rather, the symlink in the Arduino libraries subdirectory) via `Sketch->Import Library`.
+Then you may have to add it (or rather, the symlink in the Arduino libraries subdirectory) via `Sketch->Include Library`.
 
 ## Running
 
