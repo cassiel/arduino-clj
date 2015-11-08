@@ -1,6 +1,6 @@
 /* -*- mode: c++; -*- */
 
-#include "CljComms.h"
+#include <CljComms.h>
 
 #define LED 13
 
