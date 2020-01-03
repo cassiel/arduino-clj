@@ -49,7 +49,7 @@ To transmit:
   (c/xmit p \+ [n n n 1]))
 ```
 
-That uses command "`L`" to turn LED 13 on and off (see the Arduino sketch `test.ino` for details), attempts command "`X`" (which doesn't exist, and is ignored at the Arduino end), and does ten calls of "`+`" with multiple arguments (all of which much be in the byte range; the plus operation returns a 16-bit result in two bytes).
+That uses command "`L`" to turn LED 13 on and off (see the Arduino sketch `test.ino` for details), attempts command "`X`" (which doesn't exist, and is ignored at the Arduino end), and does ten calls of "`+`" with multiple arguments (all of which must be in the byte range; the plus operation returns a 16-bit result in two bytes).
 
 On the Arduino side:
 
